@@ -18,6 +18,12 @@ Use cases:
 * Messaging exploration
 * Persona variations
 
+## Example Output
+
+### Terminal batch generation
+![Terminal output](./assets/terminal-output.png)
+
+
 ---
 
 ### Landing Page Variant Generator
