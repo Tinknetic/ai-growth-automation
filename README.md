@@ -24,7 +24,15 @@ Use cases:
 This tool generates creative batches for experiments and ad testing in seconds.
 ![Terminal output](./assets/terminal-output.png)
 
+## How to run
 
+Generate a creative batch from the command line.
+
+```bash
+python3 generate_creative.py "Meal Prep Pro"
+
+python3 generate_creative.py "Meal Prep Pro" --persona parent --angle money 
+```
 ---
 
 ### Landing Page Variant Generator
