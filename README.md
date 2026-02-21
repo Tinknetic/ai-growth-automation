@@ -21,6 +21,7 @@ Use cases:
 ## Example Output
 
 ### Terminal batch generation
+This tool generates creative batches for experiments and ad testing in seconds.
 ![Terminal output](./assets/terminal-output.png)
 
 
