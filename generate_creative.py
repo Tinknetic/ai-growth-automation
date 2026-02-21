@@ -1,3 +1,4 @@
+import argparse
 import os
 from datetime import date
 
@@ -15,14 +16,23 @@ def write_output(path: str, text: str):
 
 
 def main():
-    product_name = "Meal Prep Pro"  # change this when needed
+    # --- CLI args (the upgrade) ---
+    parser = argparse.ArgumentParser(description="Generate a creative batch for a product.")
+    parser.add_argument("product", nargs="?", default="Meal Prep Pro", help="Product name, e.g. 'Meal Prep Pro'")
+    parser.add_argument("--persona", choices=PERSONAS.keys(), default="busy_professional",
+                        help="Persona key")
+    parser.add_argument("--angle", choices=[label for (label, _) in ANGLES], default="time",
+                        help="Angle label")
+    parser.add_argument("--out", default=None, help="Optional output filepath")
+    args = parser.parse_args()
+    # -----------------------------
 
-    # Pick one persona to generate a full batch for (fast + focused).
-    persona_key = "busy_professional"
-    persona = PERSONAS[persona_key]
+    product_name = args.product
+    persona = PERSONAS[args.persona]
 
-    # Pick one “primary angle” for hooks (keeps output coherent).
-    angle_label, angle_desc = ANGLES[0]  # time
+    angle_map = {label: desc for (label, desc) in ANGLES}
+    angle_label = args.angle
+    angle_desc = angle_map[angle_label]
 
     hooks = generate_hooks(product_name, persona, angle_label, angle_desc, n=30)
     headlines = generate_headlines(product_name, persona, n=10)
@@ -53,7 +63,12 @@ def main():
 
     text = "\n".join(output)
 
-    outfile = f"sample_outputs/{product_name.lower().replace(' ', '-')}_{date.today().isoformat()}.txt"
+    if args.out:
+        outfile = args.out
+    else:
+        slug = product_name.lower().replace(" ", "-")
+        outfile = f"sample_outputs/{slug}_{date.today().isoformat()}.txt"
+
     write_output(outfile, text)
 
     print(text)
